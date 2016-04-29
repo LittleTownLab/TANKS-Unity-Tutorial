@@ -13,13 +13,11 @@ public class GameManager : MonoBehaviour
     public GameObject m_TankPrefab;         
     public TankManager[] m_Tanks;           
 
-
     private int m_RoundNumber;              
     private WaitForSeconds m_StartWait;     
     private WaitForSeconds m_EndWait;       
     private TankManager m_RoundWinner;
     private TankManager m_GameWinner;       
-
 
     private void Start()
     {
@@ -41,8 +39,7 @@ public class GameManager : MonoBehaviour
             m_Tanks[i].Setup();
         }
     }
-
-
+		
     private void SetCameraTargets()
     {
         Transform[] targets = new Transform[m_Tanks.Length];
@@ -54,8 +51,7 @@ public class GameManager : MonoBehaviour
 
         m_CameraControl.m_Targets = targets;
     }
-
-
+		
     private IEnumerator GameLoop()
     {
         yield return StartCoroutine(RoundStarting());
@@ -71,8 +67,7 @@ public class GameManager : MonoBehaviour
             StartCoroutine(GameLoop());
         }
     }
-
-
+		
     private IEnumerator RoundStarting()
     {
 		ResetAllTanks ();
@@ -85,8 +80,7 @@ public class GameManager : MonoBehaviour
 
         yield return m_StartWait;
     }
-
-
+		
     private IEnumerator RoundPlaying()
     {
 		EnableTankControl ();
@@ -95,12 +89,10 @@ public class GameManager : MonoBehaviour
 
 		while(!OneTankLeft())
 		{
-//			Debug.Log("while");
 			yield return null;
 		}
     }
-
-
+		
     private IEnumerator RoundEnding()
     {
 		DisableTankControl();
@@ -121,8 +113,7 @@ public class GameManager : MonoBehaviour
 
         yield return m_EndWait;
     }
-
-
+		
     private bool OneTankLeft()
     {
         int numTanksLeft = 0;
@@ -135,8 +126,7 @@ public class GameManager : MonoBehaviour
 
         return numTanksLeft <= 1;
     }
-
-
+		
     private TankManager GetRoundWinner()
     {
         for (int i = 0; i < m_Tanks.Length; i++)
@@ -147,8 +137,7 @@ public class GameManager : MonoBehaviour
 
         return null;
     }
-
-
+		
     private TankManager GetGameWinner()
     {
         for (int i = 0; i < m_Tanks.Length; i++)
@@ -159,8 +148,7 @@ public class GameManager : MonoBehaviour
 
         return null;
     }
-
-
+		
     private string EndMessage()
     {
         string message = "DRAW!";
@@ -181,7 +169,6 @@ public class GameManager : MonoBehaviour
         return message;
     }
 
-
     private void ResetAllTanks()
     {
         for (int i = 0; i < m_Tanks.Length; i++)
@@ -190,7 +177,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-
     private void EnableTankControl()
     {
         for (int i = 0; i < m_Tanks.Length; i++)
@@ -198,8 +184,7 @@ public class GameManager : MonoBehaviour
             m_Tanks[i].EnableControl();
         }
     }
-
-
+		
     private void DisableTankControl()
     {
         for (int i = 0; i < m_Tanks.Length; i++)
